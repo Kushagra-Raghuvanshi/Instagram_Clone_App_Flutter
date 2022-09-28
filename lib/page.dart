@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/email_or_phone.dart';
 import 'package:instagram_clone/login_page.dart';
 
 const List<String> list = <String>[
@@ -69,7 +70,13 @@ class _pageState extends State<page> {
                           RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(7.0),
                       ))),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const EmailOrPhone()),
+                    );
+                  },
                   child: const Text(
                     "Create new account",
                     style: TextStyle(color: Colors.white, fontSize: 16),
