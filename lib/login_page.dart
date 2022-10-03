@@ -17,6 +17,16 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   String dropdownValue = list.first;
   bool _isObscure = false;
+  bool isInputEmpty1 = true;
+  bool isInputEmpty2 = true;
+
+  enable() {
+    if (isInputEmpty1 || isInputEmpty2) {
+      return MaterialStateProperty.all(Colors.blue.withOpacity(0.5));
+    } else {
+      return MaterialStateProperty.all(Colors.blue);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,12 +77,13 @@ class _LoginPageState extends State<LoginPage> {
                     width: MediaQuery.of(context).size.width * 0.85,
                     child: TextFormField(
                       textInputAction: TextInputAction.next,
-                      style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.black),
                       cursorColor: Colors.white,
                       decoration: const InputDecoration(
                           fillColor: Color.fromARGB(255, 243, 241, 242),
                           filled: true,
                           border: OutlineInputBorder(),
+                          focusedBorder: OutlineInputBorder(),
                           // errorStyle: const TextStyle(
                           //   color: Colors.white,
                           // ),
@@ -80,6 +91,16 @@ class _LoginPageState extends State<LoginPage> {
                           hintStyle: TextStyle(
                             color: Colors.grey,
                           )),
+                      onChanged: (value) {
+                        setState(() {
+                          if (value.length > 0) {
+                            //add these lines
+                            isInputEmpty1 = false;
+                          } else {
+                            isInputEmpty1 = true;
+                          }
+                        });
+                      },
                     ),
                   ),
                   SizedBox(
@@ -96,6 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                           fillColor: const Color.fromARGB(255, 243, 241, 242),
                           filled: true,
                           border: const OutlineInputBorder(),
+                          focusedBorder: const OutlineInputBorder(),
                           // errorStyle: const TextStyle(
                           //   color: Colors.white,
                           // ),
@@ -115,6 +137,16 @@ class _LoginPageState extends State<LoginPage> {
                           hintStyle: const TextStyle(
                             color: Colors.grey,
                           )),
+                      onChanged: (value) {
+                        setState(() {
+                          if (value.length > 0) {
+                            //add these lines
+                            isInputEmpty2 = false;
+                          } else {
+                            isInputEmpty2 = true;
+                          }
+                        });
+                      },
                     ),
                   ),
                   SizedBox(
@@ -123,19 +155,23 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.85,
                     height: MediaQuery.of(context).size.height * 0.06,
-                    child: TextButton(
-                        style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.blue),
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(7.0),
-                            ))),
-                        onPressed: () {},
-                        child: const Text(
-                          "Log In",
-                          style: TextStyle(color: Colors.white, fontSize: 16),
-                        )),
+                    child: IgnorePointer(
+                      ignoring: isInputEmpty1 || isInputEmpty2,
+                      child: TextButton(
+                          style: ButtonStyle(
+                              backgroundColor: enable(),
+                              // MaterialStateProperty.all(Colors.blue),
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(7.0),
+                              ))),
+                          onPressed: () {},
+                          child: const Text(
+                            "Log In",
+                            style: TextStyle(color: Colors.white, fontSize: 16),
+                          )),
+                    ),
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.04,
@@ -197,7 +233,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           const Text(
                             "Log In with Facebook",
-                            style: TextStyle(color: Colors.blue, fontSize: 14),
+                            style: TextStyle(color: Colors.blue, fontSize: 16),
                           )
                         ])),
                   ),
@@ -235,7 +271,7 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.01,
+                    height: MediaQuery.of(context).size.height * 0.02,
                   ),
                 ])),
       ),

@@ -27,6 +27,22 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.05,
                 ),
+                const DefaultTabController(
+                    initialIndex: 1,
+                    length: 2,
+                    child: TabBar(indicatorColor: Colors.black, tabs: <Widget>[
+                      Text(
+                        "PHONE",
+                        style: TextStyle(color: Colors.grey, fontSize: 16),
+                      ),
+                      Text(
+                        "EMAIL",
+                        style: TextStyle(color: Colors.grey, fontSize: 16),
+                      )
+                    ])),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.02,
+                ),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.85,
                   child: TextFormField(
@@ -101,7 +117,7 @@ class _EmailOrPhoneState extends State<EmailOrPhone> {
                   ],
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.01,
+                  height: MediaQuery.of(context).size.height * 0.02,
                 ),
               ])),
         ),
